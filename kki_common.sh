@@ -40,16 +40,21 @@ choose_with_dialog() {
 choose_with_select() {
     local title="$1"; shift
     local options=("$@")
-    echo "$title"
-    PS3="Select an option: "
-    select opt in "${options[@]}"; do
-        if [ -n "$opt" ]; then
-            echo "$opt"
-            return
-        else
-            echo "Invalid selection"
-        fi
-    done
+    # Print the menu UI to stderr so command substitution captures only the selected value on stdout.
+    exec 3>&1
+    {
+        echo "$title" >&2
+        PS3="Select an option: "
+        select opt in "${options[@]}"; do
+            if [ -n "$opt" ]; then
+                printf '%s\n' "$opt" >&3
+                exec 3>&-
+                return 0
+            else
+                echo "Invalid selection" >&2
+            fi
+        done
+    } 1>&2
 }
 
 choose() {
