@@ -8,6 +8,8 @@ Included scripts
   shell inside a selected container.
 - `kki_logs.sh` — choose a running pod and display logs from a selected
   container.
+- `kki_describe.sh` — choose a running pod and run `kubectl describe` to
+  show detailed information about the selected pod.
 
 Summary
 
@@ -28,7 +30,7 @@ Install
 Make the scripts executable:
 
 ```bash
-chmod +x kki_bash.sh kki_logs.sh
+chmod +x kki_bash.sh kki_logs.sh kki_describe.sh
 ```
 
 Usage
@@ -45,6 +47,12 @@ Usage
 ./kki_logs.sh
 ```
 
+- Describe a pod:
+
+```bash
+./kki_describe.sh
+```
+
 Examples
 
 - Run with a specific kubeconfig file:
@@ -52,6 +60,7 @@ Examples
 ```bash
 KUBECONFIG=/home/user/.kube/custom-config ./kki_bash.sh
 KUBECONFIG=/home/user/.kube/custom-config ./kki_logs.sh
+KUBECONFIG=/home/user/.kube/custom-config ./kki_describe.sh
 ```
 
 How they work
@@ -66,6 +75,7 @@ Files
 
 - `kki_bash.sh` — open a shell in a selected pod/container.
 - `kki_logs.sh` — show logs for a selected pod/container.
+- `kki_describe.sh` — describe a selected pod.
 - `LICENSE` — project license (MIT).
 
 License
